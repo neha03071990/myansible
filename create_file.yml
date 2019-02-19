@@ -1,4 +1,6 @@
-tasks:
+---
+- hosts: 172.31.40.131
+  tasks:
       - name: Create file
         file:
             path: /tmp/etlhive.txt
