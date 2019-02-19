@@ -1,5 +1,5 @@
 ---
-- hosts: {{ grp_name }}
+- hosts: "{{ grp_name }}"
   tasks:
       - name: Create file
         file:
