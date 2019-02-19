@@ -1,5 +1,5 @@
 ---
-- hosts: 172.31.40.131
+- hosts: app
   tasks:
       - name: Create file
         file:
