@@ -1,0 +1,39 @@
+---
+- hosts: myapp
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+     war_ver_specific: test
+  tasks:
+    - name: get the war version from maven-metadata.xml
+      get_url:
+         url: http://172.31.35.191:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/maven-metadata.xml
+         dest: /tmp/maven-metadata.xml
+
+    - name: grep the value from maven-metadata.xml file
+      shell: grep value maven-metadata.xml | head -1 | cut -d ">" -f2 | cut -d "<" -f1
+      register: war_ver
+
+    - debug: msg=war_ver_specific
+
+    - name: a task that only happens if the user exists
+      command: "{{ item }}"
+      with_items:
+        - rm -f /data/apache-tomcat/webapps/employees.war
+        - rm -rf /data/apache-tomcat/webapps/employees
+        - sh /data/apache-tomcat/bin/shutdown.sh
+        - curl -X GET http://172.31.35.191:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-{{ war_ver_specific }}.war -o /data/apache-tomcat/webapps/employees.war
+        - sh /data/apache-tomcat/bin/startup.sh
+      when: war_ver_specific.stdout != ""      
+
+    - name: a task that only happens if the user exists
+      command: "{{ item }}"
+      with_items:
+        - rm -f /data/apache-tomcat/webapps/employees.war
+        - rm -rf /data/apache-tomcat/webapps/employees
+        - sh /data/apache-tomcat/bin/shutdown.sh
+        - curl -X GET http://172.31.35.191:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-"{{ war_ver }}".war -o /data/apache-tomcat/webapps/employees.war
+        - sh /data/apache-tomcat/bin/startup.sh
+      when: war_ver_specific.stdout == ""
+
