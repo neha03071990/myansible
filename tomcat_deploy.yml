@@ -12,7 +12,7 @@
          dest: /tmp/maven-metadata.xml
 
     - name: grep the value from maven-metadata.xml file
-      shell: 'grep value maven-metadata.xml | head -1 | cut -d ">" -f2 | cut -d "<" -f1'
+      shell: 'grep value /tmp/maven-metadata.xml | head -1 | cut -d ">" -f2 | cut -d "<" -f1'
       register: war_ver
       ignore_errors: true
 
