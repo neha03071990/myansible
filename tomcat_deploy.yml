@@ -23,27 +23,27 @@
     - name: shutdown service
       shell: ./shutdown.sh
       args:
-        chdir: /data/apache-tomcat/bin
+        chdir: /usr/local/apache-tomcat/bin
 
     - name: delete file
       file:
         state: absent
-        path: /data/apache-tomcat/webapps/employees.war
+        path: /usr/local/apache-tomcat/webapps/employees.war
         
     - name: delete dir
       file:
         state: absent
-        path: /data/apache-tomcat/webapps/employees
+        path: /usr/local/apache-tomcat/webapps/employees
 
 
     - name: download file
       get_url:
         url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-{{ war_ver.stdout }}.war
-        dest: /data/apache-tomcat/webapps/employees.war
+        dest: /usr/local/apache-tomcat/webapps/employees.war
       when: war_ver.stdout != ""
 
     - name: start Tomcat service
       shell: nohup ./startup.sh &
       args:
-        chdir: /data/apache-tomcat/bin
+        chdir: /usr/local/apache-tomcat/bin
 
