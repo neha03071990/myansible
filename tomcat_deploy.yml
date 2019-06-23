@@ -38,7 +38,7 @@
 
     - name: download file
       get_url:
-        url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/{{ war_ver.stdout }}/employees-{{ war_ver.stdout }}.war
+        url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-{{ war_ver.stdout }}.war
         dest: /data/apache-tomcat/webapps/employees.war
       when: war_ver.stdout != ""
 
