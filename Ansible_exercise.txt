@@ -2,8 +2,12 @@
  -> Install "httpd" service on Centos and Ubuntu machines only.
  
 2. Create ansible role
- -> Copy a template index.html.j2 onto the server /var/www/html/index.html
+ -> Create template below as index.html.j2 and copy this file onto the server /var/www/html/index.html
+ -> Use default "World" in NAME variable.
  -> Restart HTTPD service once file is copied sucessfuly.
+ 
+ #vi index.html.j2
+ <h1>Hello, {{ NAME }}<h1>
  
 3. Create ansible playbook to display some message on console.
 
