@@ -1,0 +1,17 @@
+1. Create ansible playbook
+ -> Install "httpd" service on Centos and Ubuntu machines only.
+ 
+2. Create ansible role
+ -> Copy a template index.html.j2 onto the server /var/www/html/index.html
+ -> Restart HTTPD service once file is copied sucessfuly.
+ 
+3. Create ansible playbook to display some message on console.
+
+4. Create ansible playbook
+ -> Create a zip of the /usr/local/test directory
+ -> Backup zip file daily basis.
+ -> Backup should be longer for 7 days only.
+ 
+5. Create ansible playbook
+ ->  Run cleanup on weekly basis of the directory /usr/local/test/logs/*
+ ->  Delete only files extension with .log
